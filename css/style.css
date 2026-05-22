@@ -1,25 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open%20Sans:wght@400;500;700&display=swap');
 * {
   box-sizing: border-box;
 }
 
+:root {
+  --md-ref-typeface-brand: 'Google Sans Flex';
+  --md-ref-typeface-plain: system-ui;
+}
+
 body {
-  margin: 0;
+  margin: 0 auto;
   font-family: "Google Sans Flex";
 }
 
-.menu {
+.menu a {
   float: left;
   width: 20%;
   text-align: center;
 }
 
-.menu a {
+.menu  {
   background-color: #e5e5e5;
   padding: 8px;
   margin-top: 7px;
   display: block;
   width: 100%;
   color: black;
+  display: flex;
+  justify-content: left; 
+  align-items: center;     
+  height: 200px;          
 }
 
 .main {
@@ -164,4 +175,10 @@ ul::column::scroll-marker:target-current {
 ul::column::scroll-marker:target-after {
   border: 2px solid red;
   background-color: red;
+}
+.container {
+  display: flex;
+  justify-content: left; /* Horizontally center */
+  align-items: center;     /* Vertically center if container has a set height */
+  height: 200px;          /* Example height */
 }
