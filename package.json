@@ -4,13 +4,14 @@
   "description": "simple responsive web demo ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-    "build": "vite build"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build",
     "preview": "vite preview"
   },
   "author": "Eneko",
   "license": "ISC",
   "dependencies": {
-    "@material/web": "^2.4.1"
+    "@material/web": "^2.4.1",
+    "vite": "^8.0.14"
   }
 }
