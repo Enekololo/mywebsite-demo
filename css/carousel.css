@@ -1,201 +1,229 @@
-
-@layer base, mouse, demo;
-
-@layer demo {
-  @property --rotate {
-    syntax: "<number>";
-    inherits: true;
-    initial-value: 0;
+@keyframes tonext {
+  75% {
+    left: 0;
   }
- 
-  body {
-    height: 1200svh;
-    margin: 0;
-   
-    animation: --page-rotate 1s linear;
-    animation-timeline: scroll(nearest block);
-  
-    /** this allows us to rotate to exactly each card.
-    BUT, it either needs to be set via JS or hardcoded as we can't accesss the .wrapper sibling-count() value  from the body */
-    --cards: 20;
-		animation-timing-function: steps(var(--cards)); 
+  95% {
+    left: 100%;
   }
-  
-  @keyframes --page-rotate {
-    to { --rotate: 1; }
+  98% {
+    left: 100%;
   }
-  
-  .wrapper {
-    --card-border-radius: 14px;
-    --cards: sibling-count();
-    --card-width: max(150px, 20vw);
-    
-    --card-height: calc(var(--card-width) * 6 / 4);
-    /* radius large enough so cards don't overlap */
-    --radius: calc(var(--card-width) * var(--cards) / (2 * 3.1416));
-
-    
-    font-family: 'Just Me Again Down Here', handwriting;
-    position: fixed;
-    width: calc(var(--radius) * 2);
-    height: calc(var(--radius) * 2);
-  
-    /* center circle so top card is visible */
-    top: calc(50% + var(--radius) + var(--card-height) * 2);
-    left: 50%;
-    transform-origin: center center;
-    transform: translateX(-50%) rotate(calc(var(--rotate) * 360deg));
-    transition: transform 300ms linear;
-    /*zoom: .3;*/
-    & > div {
-      --card-i: sibling-index();
-      
-      /* card position around circle*/
-      --card-offset-radius: circle(var(--radius) at 50% 50%);
-      --card-offset-distance: calc((var(--card-i) - 1) / var(--cards) * 100%);
-    
-      /* current card positioning relative to --rotate to detect "top" card */
-      --card-phase: calc((var(--card-i) - 1) / var(--cards) - 0.75);
-      --card-pos: mod(calc(var(--card-phase) + var(--rotate) + 1), 1);
-      --card-dist: min(var(--card-pos),calc(1 - var(--card-pos)));
-      
-      --card-grayscale: clamp(0, calc(var(--card-dist) * var(--cards)), 1);
-      --card-opacity: calc(1 - (var(--card-dist) / 0.15 ));
-    
-      /* blur */
-      --card-focus-range: .1;
-      --card-max-blur: 7px;
-      --card-norm-dist: min(var(--card-dist), var(--card-focus-range));
-      --card-blur-progress: calc(var(--card-norm-dist) / var(--card-focus-range));
-      --card-blur: calc(var(--card-blur-progress) * var(--card-max-blur));
-    
-      /* caption */
-      --caption-active: clamp(0, 1 - (var(--card-dist) / 0.001), 1);
-      --caption-opacity: var(--caption-active);
-      --caption-y: calc(-150px * (1 - var(--caption-active)));
-    
-      
-      filter: blur(var(--card-blur)) grayscale(var(--card-grayscale));
-      opacity: var(--card-opacity);
-      container: size;
-      
-      offset-path: var(--card-offset-radius);
-      offset-distance: var(--card-offset-distance);
-      offset-rotate: auto;
-      offset-anchor: 50% 100%;
-    
-      position: absolute;
-      width: var(--card-width);
-      aspect-ratio: 4/6;
-      object-fit: cover;
-      border-radius: var(--card-border-radius);
-      transition: all 300ms ease-in-out;
-      transform-origin: center calc(var(--card-height) * 2 * -1);
-      /*
-      &::before{
-        content: counter(i);
-        counter-reset: i var(--caption-opacity);
-      }
-      */
-      &::after {
-        content: attr(data-title);
-        position: absolute;
-        top: 100%;
-        left: 1rem;
-        opacity: var(--caption-opacity);
-        translate: 0 var(--caption-y);
-        font-size: clamp(1rem, 2vw + 0.045rem,1.6rem);
-        z-index: -1;
-        transition: opacity 300ms ease-in-out,translate 300ms ease-in-out;
-      }
-      & > img{
-        width: 100%;
-        height: 100%;
-        object-fit:cover;
-        border-radius: inherit;
-      }  
-    }
+  99% {
+    left: 0;
   }
 }
 
-@layer mouse{
-  
-  .mouse {
-		position: fixed;
-		bottom:1rem;
-		left: 50%;
-    translate: -50% 0;
-		display: block;
-		width: 50px;
-		height: 50px;
-		opacity: 1;
-    color:var(--mouse-color);
-     display: none;
-		animation-name: mouse;
-		animation-duration: 1s;
-		animation-timing-function: linear;
-		animation-fill-mode: forwards;
-		animation-timeline: scroll(nearest block);
-    @supports  (animation-timeline: scroll()) {
-      display: block;
-    }
-	}
-	@keyframes mouse {
-		75% {
-			opacity: 1;
-		}
-		100% {
-			opacity: 0;
-		}
-	}
+@keyframes tostart {
+  75% {
+    left: 0;
+  }
+  95% {
+    left: -300%;
+  }
+  98% {
+    left: -300%;
+  }
+  99% {
+    left: 0;
+  }
 }
 
+@keyframes snap {
+  96% {
+    scroll-snap-align: center;
+  }
+  97% {
+    scroll-snap-align: none;
+  }
+  99% {
+    scroll-snap-align: none;
+  }
+  100% {
+    scroll-snap-align: center;
+  }
+}
 
-  /* general styling not relevant for this demo */
-@layer base {
-	* {
-		box-sizing: border-box;
-	}
-	:root {
-		color-scheme: light dark;
-		--bg-dark: rgb(16, 24, 40);
-		--bg-light: rgb(248, 244, 238);
-		--txt-light: rgb(10, 10, 10);
-		--txt-dark: rgb(245, 245, 245);
-		--line-light: rgba(0 0 0 / .25);
-		--line-dark: rgba(255 255 255 / .25);
-    
-    --clr-bg: light-dark(var(--bg-light), var(--bg-dark));
-    --clr-txt: light-dark(var(--txt-light), var(--txt-dark));
-    --clr-lines: light-dark(var(--line-light), var(--line-dark));
-	}
- 
-	body {
-		background-color: var(--clr-bg);
-		color: var(--clr-txt);
-		min-height: 100svh;
-		margin: 0;
-		padding: 2rem;
-		font-family: "Google Sans Flex";
-		font-size: 1rem;
-		line-height: 1.5;
-    display: grid;
-    place-items: center;
-    gap: 2rem;
-		
-	}
-	h1 {
-		margin: 0;
-		font-size: 1.2rem;
-	}
-	@supports  not (animation-timeline: scroll()) {
-	 body::before {
-			content:"Sorry, your browser doesn't support animation-timeline";
-			position: fixed;
-			top: 2rem;
-			left: 50%;
-			translate: -50% 0;
-			font-size: 0.8rem;
-		}
-	}
+body {
+  max-width: 37.5rem;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+  font-family: 'Lato', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-color: transparent transparent; /* thumb and track color */
+  scrollbar-width: 0px;
+}
+
+*::-webkit-scrollbar {
+  width: 0;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: transparent;
+  border: none;
+}
+
+* {
+  -ms-overflow-style: none;
+}
+
+ol, li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel {
+  position: relative;
+  padding-top: 75%;
+  filter: drop-shadow(0 0 10px #0003);
+  perspective: 100px;
+}
+
+.carousel__viewport {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  overflow-x: scroll;
+  counter-reset: item;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel__slide {
+  position: relative;
+  flex: 0 0 100%;
+  width: 100%;
+  background: url(../src/images/kanye-west-rapper-2650730108.gif);
+  counter-increment: item;
+}
+
+.carousel__slide:nth-child(even) {
+  background: url(../src/images/minion.jpeg);
+  object-fit: contain;
+}
+
+.carousel__slide:before {
+  content: counter(item);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%,-40%,70px);
+  color: #fff;
+  font-size: 2em;
+}
+
+.carousel__snapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: center;
+}
+
+@media (hover: hover) {
+  .carousel__snapper {
+    animation-name: tonext, snap;
+    animation-timing-function: ease;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+  }
+
+  .carousel__slide:last-child .carousel__snapper {
+    animation-name: tostart, snap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel__snapper {
+    animation-name: none;
+  }
+}
+
+.carousel:hover .carousel__snapper,
+.carousel:focus-within .carousel__snapper {
+  animation-name: none;
+}
+
+.carousel__navigation {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+
+.carousel__navigation-list,
+.carousel__navigation-item {
+  display: inline-block;
+}
+
+.carousel__navigation-button {
+  display: inline-block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #333;
+  background-clip: content-box;
+  border: 0.25rem solid transparent;
+  border-radius: 50%;
+  font-size: 0;
+  transition: transform 0.1s;
+}
+
+.carousel::before,
+.carousel::after,
+.carousel__prev,
+.carousel__next {
+  position: absolute;
+  top: 0;
+  margin-top: 37.5%;
+  width: 4rem;
+  height: 4rem;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  font-size: 0;
+  outline: 0;
+}
+
+.carousel::before,
+.carousel__prev {
+  left: -1rem;
+}
+
+.carousel::after,
+.carousel__next {
+  right: -1rem;
+}
+
+.carousel::before,
+.carousel::after {
+  content: '';
+  z-index: 1;
+  background-color: #333;
+  background-size: 1.5rem 1.5rem;
+  background-repeat: no-repeat;
+  background-position: center center;
+  color: #fff;
+  font-size: 2.5rem;
+  line-height: 4rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+.carousel::before {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='0,50 80,100 80,0' fill='%23fff'/%3E%3C/svg%3E");
+}
+
+.carousel::after {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpolygon points='100,50 20,100 20,0' fill='%23fff'/%3E%3C/svg%3E");
 }

@@ -3,85 +3,72 @@
     <head>
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link href="css/carousel.css" rel="stylesheet"> 
+     <title>Freaky ahh carousel demo</title>
      <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@400;500;700&display=swap" rel="stylesheet">  
     </head>
-    
-    <body style="font-family: Google Sans Flex;">
-        <section class="wrapper">
-  <div data-title="ye">
-    <img src="src/images/kanye-west-rapper-2650730108.gif">
-  </div>
-	<div data-title="look">
-    <img src="src/images/soyjack.jpg">
-  </div>
-  <div data-title="Pelo">
-    <img src="src/images/srpelo.jpg">
-  </div>
-  <div data-title="twingo">
-    <img src="src/images/twingo.jpg">
-  </div>
-  <div data-title="Speed Watches">
-    <img src="src/images/speed-watches.gif">
-  </div>
-  <div data-title="FlightReacts zesty">
-    <img src="src/images/flight.jpg">
-  </div>
-  <div id="img-7" data-title="FlightReact zesty... again">
-    <img src="src/images/flight2.jpg">
-  </div>
-  <div data-title="My mom is kinda homeless...">
-    <img src="src/images/speed.png">
-  </div>
-  <div data-title="Son 😭😭😭">
-    <img src="src/images/son.jpg">
-  </div>
-  <div data-title="Son Speed">
-    <img src="src/images/son-speed.gif">
-  </div>
-  <div data-title="Minion...">
-    <img src="src/images/minion.jpeg">
-  </div>
-  <div data-title="Raindrops">
-    <img src="https://picsum.photos/id/178/1200/1200">
-  </div>
-  <div data-title="Gone Sailing">
-    <img src="https://picsum.photos/id/637/1200/1200">
-  </div>
-  <div data-title="The Watch Tower">
-    <img src="https://picsum.photos/id/641/1200/1200">
-  </div>
-  <div data-title="Leaving">
-    <img src="https://picsum.photos/id/669/1200/1200">
-  </div>
-  <div data-title="Above the Clouds">
-    <img src="https://picsum.photos/id/685/1200/1200">
-  </div>
-	<div data-title="This is the title">
-    <img src="https://picsum.photos/id/505/1200/1200">
-  </div>
-	<div data-title="This is the title">
-    <img src="https://picsum.photos/id/699/1200/1200">
-  </div>
-  <div data-title="This is the title">
-    <img src="https://picsum.photos/id/513/1200/1200">
-  </div>
-	<div data-title="Contemplation!">
-    <img src="https://picsum.photos/id/773/1200/1200">
-  </div>
+    <h1>CSS-only Carousel</h1>
 
+<p style="font-family: Google Sans Flex;">This carousel is created with HTML and CSS only.</p>
+<a href="index.html" style="font-family: Google Sans Flex;">Back</a>
+
+<section class="carousel" aria-label="Gallery">
+  <ol class="carousel__viewport">
+    <li id="carousel__slide1"
+        tabindex="0"
+        class="carousel__slide">
+      <div class="carousel__snapper">
+        <a href="#carousel__slide4"
+           class="carousel__prev">Go to last slide</a>
+        <a href="#carousel__slide2"
+           class="carousel__next">Go to next slide</a>
+      </div>
+    </li>
+    <li id="carousel__slide2"
+        tabindex="0"
+        class="carousel__slide">
+      <div class="carousel__snapper"></div>
+      <a href="#carousel__slide1"
+         class="carousel__prev">Go to previous slide</a>
+      <a href="#carousel__slide3"
+         class="carousel__next">Go to next slide</a>
+    </li>
+    <li id="carousel__slide3"
+        tabindex="0"
+        class="carousel__slide">
+      <div class="carousel__snapper"></div>
+      <a href="#carousel__slide2"
+         class="carousel__prev">Go to previous slide</a>
+      <a href="#carousel__slide4"
+         class="carousel__next">Go to next slide</a>
+    </li>
+    <li id="carousel__slide4"
+        tabindex="0"
+        class="carousel__slide">
+      <div class="carousel__snapper"></div>
+      <a href="#carousel__slide3"
+         class="carousel__prev">Go to previous slide</a>
+      <a href="#carousel__slide1"
+         class="carousel__next">Go to first slide</a>
+    </li>
+  </ol>
+  <aside class="carousel__navigation">
+    <ol class="carousel__navigation-list">
+      <li class="carousel__navigation-item">
+        <a href="#carousel__slide1"
+           class="carousel__navigation-button">Go to slide 1</a>
+      </li>
+      <li class="carousel__navigation-item">
+        <a href="#carousel__slide2"
+           class="carousel__navigation-button">Go to slide 2</a>
+      </li>
+      <li class="carousel__navigation-item">
+        <a href="#carousel__slide3"
+           class="carousel__navigation-button">Go to slide 3</a>
+      </li>
+      <li class="carousel__navigation-item">
+        <a href="#carousel__slide4"
+           class="carousel__navigation-button">Go to slide 4</a>
+      </li>
+    </ol>
+  </aside>
 </section>
-
-
-<div class="icon">
-		<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 40" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mouse">
-			<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-			<path d="M6 3m0 4a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-4a4 4 0 0 1 -4 -4z" />
-			<path d="M12 7l0 4" />
-			<path d="M8 26l4 4l4 -4">
-				<animateTransform attributeType="XML" attributeName="transform" type="translate" values="0 0; 0 4; 0 0" dur="1s" repeatCount="indefinite" />
-			</path>
-		</svg>
-	 <a href="index.html">back</a>
-    </div>
-    </body>
-</html>
